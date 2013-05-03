@@ -20,7 +20,6 @@ module LanguagePack
     end
 
     def compile
-puts "compiling java web"
       Dir.chdir(build_path) do
         install_java
         install_tomcat
