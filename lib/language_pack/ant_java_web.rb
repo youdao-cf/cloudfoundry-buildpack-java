@@ -53,7 +53,7 @@ module LanguagePack
 		end
 
 		def build_webapp_via_ant
-			run_with_err_output("ant clean all")
+			run_with_err_output("ant all")
 			unless File.exists?("build/#{FIXED_WAR_NAME}")
 				puts "Unable build webapp via ant"
 				exit 1
@@ -65,9 +65,9 @@ module LanguagePack
 		end
 
 		def download_ant(ant_tarball)
-			puts "Downloading Tomcat: #{TOMCAT_PACKAGE}"
-			fetch_package TOMCAT_PACKAGE, "http://10.168.3.189/static/#{ANT_PACKAGE}"
-			FileUtils.mv TOMCAT_PACKAGE, ant_tarball
+			puts "Downloading Tomcat: #{ANT_PACKAGE}"
+			fetch_package ANT_PACKAGE, "http://10.168.3.189/static/#{ANT_PACKAGE}"
+			FileUtils.mv ANT_PACKAGE, ant_tarball
 		end
 
 		def copy_webapp_war_to_tomcat
