@@ -22,6 +22,7 @@ module LanguagePack
 		def compile
 			Dir.chdir(build_path) do
 				install_java
+				setup_profiled
 				install_ant
 				build_webapp_via_ant
 				install_tomcat
@@ -31,7 +32,6 @@ module LanguagePack
 				install_database_drivers
 				#install_insight
 				copy_resources
-				setup_profiled
 			end
 		end
 
@@ -55,7 +55,7 @@ module LanguagePack
 		def build_webapp_via_ant
 			run_with_err_output("ant all")
 			unless File.exists?("build/#{FIXED_WAR_NAME}")
-				puts "Unable build webapp via ant"
+				puts "Unable to build webapp via ant"
 				exit 1
 			end
 		end
