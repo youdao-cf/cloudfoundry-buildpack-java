@@ -65,8 +65,8 @@ module LanguagePack
 		end
 
 		def download_ant(ant_tarball)
-			puts "Downloading Tomcat: #{ANT_PACKAGE}"
-			fetch_package ANT_PACKAGE, "http://10.168.3.189/static/#{ANT_PACKAGE}"
+			puts "Downloading Ant: #{ANT_PACKAGE}"
+			fetch_package ANT_PACKAGE, "http://10.168.3.189/static"
 			FileUtils.mv ANT_PACKAGE, ant_tarball
 		end
 
