@@ -22,7 +22,6 @@ module LanguagePack
 		def compile
 			Dir.chdir(build_path) do
 				install_java
-				setup_profiled
 				install_ant
 				build_webapp_via_ant
 				install_tomcat
@@ -31,6 +30,7 @@ module LanguagePack
 				move_tomcat_to_root
 				install_database_drivers
 				#install_insight
+				setup_profiled
 				copy_resources
 			end
 		end
@@ -49,11 +49,10 @@ module LanguagePack
 				puts "Unable to retrieve Ant"
 				exit 1
 			end
-			set_env_override "PATH", "$HOME/#{ant_dir}/bin:$PATH"
 		end
 
 		def build_webapp_via_ant
-			run_with_err_output("ant all")
+			run_with_err_output("JAVA_HOME=$HOME/#{jdk_dir} PATH=$HOME/#{jdk_dir}/bin:$PATH LANG=en_US.UTF-8 $HOME/#{ant_dir}/bin/ant all")
 			unless File.exists?("build/#{FIXED_WAR_NAME}")
 				puts "Unable to build webapp via ant"
 				exit 1
