@@ -52,7 +52,7 @@ module LanguagePack
 		end
 
 		def build_webapp_via_ant
-			run_with_err_output("JAVA_HOME=$HOME/#{jdk_dir} PATH=$HOME/#{jdk_dir}/bin:$PATH LANG=en_US.UTF-8 $HOME/#{ant_dir}/bin/ant all")
+			run_with_err_output("JAVA_HOME=#{build_path}/#{jdk_dir} #{ant_dir}/bin/ant all")
 			unless File.exists?("build/#{FIXED_WAR_NAME}")
 				puts "Unable to build webapp via ant"
 				exit 1
