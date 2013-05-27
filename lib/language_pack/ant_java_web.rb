@@ -12,7 +12,7 @@ module LanguagePack
 		FIXED_WAR_NAME = "ROOT.war".freeze
 
 		def self.use?
-			File.exists?("build.xml") && (File.exists?("WEB-INF/web.xml") || File.exists?("webapps/ROOT/WEB-INF/web.xml"))
+			File.exists?("build.xml")
 		end
 
 		def name
@@ -71,7 +71,7 @@ module LanguagePack
 		end
 
 		def copy_webapp_war_to_tomcat
-			run_with_err_output("mv target/#{FIXED_WAR_NAME} #{tomcat_dir}/webapps/#{FIXED_WAR_NAME}")
+			run_with_err_output("mv build/#{FIXED_WAR_NAME} #{tomcat_dir}/webapps/#{FIXED_WAR_NAME}")
 			unless File.exists?("#{tomcat_dir}/webapps/#{FIXED_WAR_NAME}")
 				puts "Unable copy webapp war to tomcat via ant"
 				exit 1
