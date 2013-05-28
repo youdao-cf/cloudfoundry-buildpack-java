@@ -51,7 +51,7 @@ module LanguagePack
 
     def download_tomcat(tomcat_tarball)
       puts "Downloading Tomcat: #{TOMCAT_PACKAGE}"
-      fetch_package TOMCAT_PACKAGE, "http://sb080x.corp.youdao.com:8888"
+      fetch_package TOMCAT_PACKAGE, "http://10.168.3.189/static"
       FileUtils.mv TOMCAT_PACKAGE, tomcat_tarball
     end
 
