@@ -8,8 +8,7 @@ module LanguagePack
 		include LanguagePack::PackageFetcher
 		include LanguagePack::DatabaseHelpers
 
-		ANT_PACKAGE = "apache-ant-1.8.2-ivy-2.2.0-outfox.tar.gz".freeze
-		RESIN_PACKAGE = "resin-3.0.21.tar.gz".freeze
+		ANT_PACKAGE = "apache-ant-1.9.1-bin.tar.gz".freeze
 		FIXED_WAR_NAME = "ROOT.war".freeze
 
 		def self.use?
@@ -25,32 +24,17 @@ module LanguagePack
 				install_java
 				install_ant
 				build_webapp_via_ant
-				install_resin
-				remove_resin_files
-				copy_webapp_war_to_resin
-				generate_resin_conf
-			#	move_tomcat_to_root
-			#	install_database_drivers
+				install_tomcat
+				remove_tomcat_files
+				copy_webapp_war_to_tomcat
+				move_tomcat_to_root
+				install_database_drivers
 				#install_insight
 				setup_profiled
 				copy_resources
 			end
 		end
 
-def generate_resin_conf
-	fetch_package "generate_server_xml", "http://10.168.3.189/static"
-run_with_err_output("chmod a+x generate_server_xml")
-end
-
-def remove_resin_files 
-	FileUtils.rm_rf("#{RESIN_PACKAGE}")
-end
-		def install_resin
-		        puts "Downloading resin"
-                        fetch_package RESIN_PACKAGE, "http://10.168.3.189/static"
-			run_with_err_output("tar xzf #{RESIN_PACKAGE}")
-
-		end
 		def install_ant
 			FileUtils.mkdir_p ant_dir
 			ant_tarball="#{ant_dir}/ant.tar.gz"
@@ -75,15 +59,6 @@ end
 			end
 		end
 
-    def default_process_types
-      {
-        "web" => "/home/vcap/.rvm/rubies/ruby-1.9.3-p392/bin/ruby generate_server_xml  &&./resin-3.0.21/bin/httpd.sh -conf resin.conf"
-      }
-    end
-
-def resin_dir
-	"./resin-3.0.21"
-end
 		def ant_dir
 			".ant"
 		end
@@ -94,9 +69,9 @@ end
 			FileUtils.mv ANT_PACKAGE, ant_tarball
 		end
 
-		def copy_webapp_war_to_resin
-			run_with_err_output("mv build/#{FIXED_WAR_NAME} #{resin_dir}/webapps/#{FIXED_WAR_NAME}")
-			unless File.exists?("#{resin_dir}/webapps/#{FIXED_WAR_NAME}")
+		def copy_webapp_war_to_tomcat
+			run_with_err_output("mv build/#{FIXED_WAR_NAME} #{tomcat_dir}/webapps/#{FIXED_WAR_NAME}")
+			unless File.exists?("#{tomcat_dir}/webapps/#{FIXED_WAR_NAME}")
 				puts "Unable copy webapp war to tomcat via ant"
 				exit 1
 			end
