@@ -7,6 +7,11 @@ JAVA_WEB_DIR="WEB-INF"
 GRAILS_WEB_DIR="WEB-INF/lib/grails-web"
 WEBAPP_DIR="webapps/ROOT"
 
+### Ant Java Web
+if [ -n "$(find $BUILD_DIR -name 'build.xml')" ]; then
+    echo "Ant Java Web"
+    exit 0
+fi
 
 ### Play
 if [ -n "$(find $BUILD_DIR -name 'play.*.jar')" ]; then

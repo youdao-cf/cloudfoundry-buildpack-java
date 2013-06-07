@@ -2,9 +2,9 @@ module LanguagePack::DatabaseHelpers
 
   SERVICE_DRIVER_HASH = {
     "*mysql-connector-java-*.jar" =>
-        "http://search.maven.org/remotecontent?filepath=mysql/mysql-connector-java/5.1.12/mysql-connector-java-5.1.12.jar",
+        "http://10.168.3.189/static/mysql-connector-java-5.1.12.jar",
     "*postgresql-*.jdbc*.jar" =>
-        "http://search.maven.org/remotecontent?filepath=postgresql/postgresql/9.0-801.jdbc4/postgresql-9.0-801.jdbc4.jar"
+        "http://10.168.3.189/static/mysql-connector-java-5.1.12.jar"
   }.freeze
 
   def install_database_drivers

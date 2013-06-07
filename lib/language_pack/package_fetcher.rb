@@ -5,7 +5,7 @@ require "base64"
 module LanguagePack
   module PackageFetcher
 
-    VENDOR_URL = "https://s3.amazonaws.com/heroku-jvm-langpack-java"
+    VENDOR_URL = "http://10.168.3.189/static"
     BLOBSTORE_CONFIG = File.join(File.dirname(__FILE__), "../../config/blobstore.yml")
     PACKAGES_CONFIG = File.join(File.dirname(__FILE__), "../../config/packages.yml")
 
